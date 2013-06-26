@@ -211,16 +211,20 @@ bool (*__CFObjCIsCollectable)(void *) = NULL;
 #if !__CONSTANT_CFSTRINGS__ || DEPLOYMENT_TARGET_EMBEDDED_MINI
 // Compiler uses this symbol name; must match compiler built-in decl, so we use 'int'
 #if __LP64__
+#define CFCONSTANT_DEFINED 1
 int __CFConstantStringClassReference[24] = {0};
 #else
+#define CFCONSTANT_DEFINED 1
 int __CFConstantStringClassReference[12] = {0};
 #endif
 #endif
 
-#if __LP64__
+#if !defined(CFCONSTANT_DEFINED)
+#if __LP64__ 
 int __CFConstantStringClassReference[24] = {0};
 #else
 int __CFConstantStringClassReference[12] = {0};
+#endif
 #endif
 
 void *__CFConstantStringClassReferencePtr = NULL;
