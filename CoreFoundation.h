@@ -84,7 +84,7 @@
 #include <CoreFoundation/CFURL.h>
 #include <CoreFoundation/CFURLAccess.h>
 #include <CoreFoundation/CFUUID.h>
-#include <CoreFoundation/CFUtilities.h>
+//#include <CoreFoundation/CFUtilities.h>
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)) || (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE) || TARGET_OS_WIN32
 #include <CoreFoundation/CFBundle.h>
