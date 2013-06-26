@@ -109,7 +109,7 @@
 
 static CFTypeID stringtype, datatype, numbertype, datetype;
 static CFTypeID booltype, nulltype, dicttype, arraytype, settype;
-
+#ifndef DISABLE_GCD
 static void initStatics() {
     static dispatch_once_t once;
     dispatch_once(&once, ^{
@@ -124,6 +124,24 @@ static void initStatics() {
         nulltype = CFNullGetTypeID();
     });
 }
+#else
+static void initStatics() {
+    static int initialized = 0;
+
+    if ( !initialized ) {
+        stringtype = CFStringGetTypeID();
+        datatype = CFDataGetTypeID();        
+        numbertype = CFNumberGetTypeID();
+        booltype = CFBooleanGetTypeID();
+        datetype = CFDateGetTypeID();
+        dicttype = CFDictionaryGetTypeID();
+        arraytype = CFArrayGetTypeID();
+        settype = CFSetGetTypeID();
+        nulltype = CFNullGetTypeID();
+    }
+}
+
+#endif
 
 __private_extern__ CFErrorRef __CFPropertyListCreateError(CFIndex code, CFStringRef debugString, ...) {    
     va_list argList;        
