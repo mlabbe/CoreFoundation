@@ -67,6 +67,11 @@
 #define __has_feature(x) 0
 #endif
 
+// dispatch/once.h defines this on OS X.  Not available on other platforms.
+#if !defined(__DISPATCH_ONCE__)
+typedef long dispatch_once_t;
+#endif
+
 // Some compilers provide the capability to test if certain attributes are available. This macro provides a compatibility path for other compilers.
 #ifndef __has_attribute
 #define __has_attribute(x) 0
@@ -132,7 +137,7 @@
 
 #endif
 
-#if __has_feature(enumerator_attributes) && __has_attribute(availability)
+#if __has_feature(enumerator_attributes) && __has_attribute(availability) && !defined(DEPLOYMENT_TARGET_LINUX)
 #define CF_ENUM_AVAILABLE(_mac, _ios) __OSX_AVAILABLE_STARTING(__MAC_##_mac, __IPHONE_##_ios)
 #define CF_ENUM_AVAILABLE_MAC(_mac) __OSX_AVAILABLE_STARTING(__MAC_##_mac, __IPHONE_NA)
 #define CF_ENUM_AVAILABLE_IOS(_ios) __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_##_ios)
