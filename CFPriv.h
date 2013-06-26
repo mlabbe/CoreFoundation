@@ -40,6 +40,7 @@
 #include <CoreFoundation/CFLocale.h>
 #include <CoreFoundation/CFDate.h>
 #include <CoreFoundation/CFSet.h>
+#include <CoreFoundation/CFBundlePriv.h>
 #include <math.h>
 
 
