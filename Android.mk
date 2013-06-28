@@ -1,5 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 
+$(warning building corefoundation)
+
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := corefoundationlite
@@ -8,8 +10,8 @@ LOCAL_MODULE := corefoundationlite
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/..
 
 LOCAL_SRC_FILES := \
-CFArray.c \
 CFApplicationPreferences.c \
+CFArray.c \
 CFBag.c \
 CFBase.c \
 CFBasicHash.c \
@@ -83,7 +85,7 @@ CFXMLTree.c
 # todo: remove Linux case
 LOCAL_EXPORT_CFLAGS := -DDEPLOYMENT_TARGET_LINUX -DDEPLOYMENT_TARGET_ANDROID
 
-LOCAL_CFLAGS = -x c -fblocks -std=gnu99 -Wno-trigraphs -fexceptions -DCF_BUILDING_CF=1 -DDISABLE_GCD -include CoreFoundation_Prefix.h -nostdlibinc $(LOCAL_EXPORT_CFLAGS)
+LOCAL_CFLAGS = -x c -fblocks -std=gnu99 -Wno-trigraphs -fexceptions -DCF_BUILDING_CF=1 -DDISABLE_GCD -include CoreFoundation_Prefix.h -nostdlibinc -I$(LOCAL_PATH)/../libBlocksRuntime  $(LOCAL_EXPORT_CFLAGS)
 
 #note: not all flags from MakefileLinux have been ported over.
 LOCAL_LDFLAGS = -fpic 
