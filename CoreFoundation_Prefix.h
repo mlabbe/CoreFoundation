@@ -127,7 +127,10 @@ typedef int		boolean_t;
 #define strlcat(a,b,c) strncat(a,b,c)
 #define strlcpy(a,b,c) strncpy(a,b,c)
 
+// This breaks Android NDK compiles in unistd.h -ml
+#ifndef DEPLOYMENT_TARGET_ANDROID    
 #define issetugid() 0
+#endif
     
 // Implemented in CFPlatform.c 
 bool OSAtomicCompareAndSwapPtr(void *oldp, void *newp, void *volatile *dst);
