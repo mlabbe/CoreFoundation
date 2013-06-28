@@ -40,11 +40,19 @@
 #include <string.h>
 #include <unicode/ucal.h>
 #include <CoreFoundation/CFDateFormatter.h>
-#if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_LINUX
+
+#if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_LINUX || DEPLOYMENT_TARGET_ANDROID
 #include <dirent.h>
 #include <unistd.h>
+
+#ifdef DEPLOYMENT_TARGET_ANDROID
+#include <fcntl.h>
+#else
 #include <sys/fcntl.h>
 #endif
+
+#endif
+
 #if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED
 #include <tzfile.h>
 #elif DEPLOYMENT_TARGET_LINUX
