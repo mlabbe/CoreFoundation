@@ -1,5 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 
+ICUROOT := /Users/mlabbe/Documents/code/vendors/platform_external_icu4c
+
 $(warning building corefoundation)
 
 include $(CLEAR_VARS)
@@ -8,6 +10,19 @@ LOCAL_MODULE := corefoundationlite
 
 # Support includes in format <CoreFoundation/CFBase.h>
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/..
+
+# removed files: 
+# CFBundle.c -- also removed in Linux
+# CFBundle_Resources.c  
+# CFMachPort.c 
+# CFMessagePort.c 
+# CFPlugin.c
+# CFPlugin_Factory.c
+# CFPlugIn_Instance.c 
+# CFPlugIn_PlugIn.c 
+# CFRunloop.c
+# CFSocket.c 
+# CFUserNotification.c
 
 LOCAL_SRC_FILES := \
 CFApplicationPreferences.c \
@@ -20,8 +35,6 @@ CFBinaryHeap.c \
 CFBinaryPList.c \
 CFBitVector.c \
 CFBuiltinConverters.c \
-CFBundle.c \
-CFBundle_Resources.c \
 CFBurstTrie.c \
 CFCalendar.c \
 CFCharacterSet.c \
@@ -36,23 +49,15 @@ CFICUConverters.c \
 CFLocale.c \
 CFLocaleIdentifier.c \
 CFLocaleKeys.c \
-CFMachPort.c \
-CFMessagePort.c \
 CFNumber.c \
 CFNumberFormatter.c \
 CFOldStylePList.c \
 CFPlatform.c \
 CFPlatformConverters.c \
-CFPlugIn.c \
-CFPlugIn_Factory.c \
-CFPlugIn_Instance.c \
-CFPlugIn_PlugIn.c \
 CFPreferences.c \
 CFPropertyList.c \
-CFRunLoop.c \
 CFRuntime.c \
 CFSet.c \
-CFSocket.c \
 CFSocketStream.c \
 CFSortFunctions.c \
 CFStorage.c \
@@ -72,7 +77,6 @@ CFUUID.c \
 CFUniChar.c \
 CFUnicodeDecomposition.c \
 CFUnicodePrecomposition.c \
-CFUserNotification.c \
 CFUtilities.c \
 CFVersion.c \
 CFWindowsUtilities.c \
@@ -85,7 +89,7 @@ CFXMLTree.c
 # todo: remove Linux case
 LOCAL_EXPORT_CFLAGS := -DDEPLOYMENT_TARGET_LINUX -DDEPLOYMENT_TARGET_ANDROID
 
-LOCAL_CFLAGS = -x c -fblocks -std=gnu99 -Wno-trigraphs -fexceptions -DCF_BUILDING_CF=1 -DDISABLE_GCD -include CoreFoundation_Prefix.h -nostdlibinc -I$(LOCAL_PATH)/../libBlocksRuntime  $(LOCAL_EXPORT_CFLAGS)
+LOCAL_CFLAGS = -x c -fblocks -std=gnu99 -Wno-trigraphs -fexceptions -DCF_BUILDING_CF=1 -DDISABLE_GCD -include CoreFoundation_Prefix.h -nostdlibinc -I$(LOCAL_PATH)/../libBlocksRuntime  -I $(ICUROOT)/i18n -I $(ICUROOT)/common $(LOCAL_EXPORT_CFLAGS)
 
 #note: not all flags from MakefileLinux have been ported over.
 LOCAL_LDFLAGS = -fpic 
