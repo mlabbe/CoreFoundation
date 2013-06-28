@@ -88,7 +88,14 @@ CF_EXTERN_C_BEGIN
 #include <CoreFoundation/CFRuntime.h>
 #include <limits.h>
 #if DEPLOYMENT_TARGET_MACOSX || DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_EMBEDDED_MINI || DEPLOYMENT_TARGET_LINUX
+
+// mlabbe: NDK does not include xlocale.h, only locale.h
+#ifdef DEPLOYMENT_TARGET_ANDROID
+#include <locale.h>
+#else
 #include <xlocale.h>
+#endif
+
 #include <unistd.h>
 #include <sys/time.h>
 #include <signal.h>
@@ -125,7 +132,9 @@ CF_EXPORT void _CFMachPortInstallNotifyPort(CFRunLoopRef rl, CFStringRef mode);
 
 __private_extern__ CFIndex __CFActiveProcessorCount();
 
-#if defined(__i386__) || defined(__x86_64__)
+#if defined(__ppc__)
+    #define HALT do {asm __volatile__("trap"); kill(getpid(), 9); } while (0)
+#elif defined(__i386__) || defined(__x86_64__)
     #if defined(__GNUC__)
         #define HALT do {asm __volatile__("int3"); kill(getpid(), 9); } while (0)
     #elif defined(_MSC_VER)
@@ -133,6 +142,10 @@ __private_extern__ CFIndex __CFActiveProcessorCount();
     #else
         #error Compiler not supported
     #endif
+#endif
+
+#if defined(__arm__)
+    #define HALT do {asm __volatile__("bkpt 0xCF"); kill(getpid(), 9); } while (0)
 #endif
 
 
