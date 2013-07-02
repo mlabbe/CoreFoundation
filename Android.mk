@@ -2,8 +2,6 @@ LOCAL_PATH := $(call my-dir)
 
 ICUROOT := /Users/mlabbe/Documents/code/vendors/platform_external_icu4c
 
-$(warning building corefoundation)
-
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := corefoundationlite
@@ -93,5 +91,7 @@ LOCAL_CFLAGS = -x c -fblocks -std=gnu99 -Wno-trigraphs -fexceptions -DCF_BUILDIN
 
 #note: not all flags from MakefileLinux have been ported over.
 LOCAL_LDFLAGS = -fpic 
+
+include $(JNIPATH)/clang-extras.mk
 
 include $(BUILD_STATIC_LIBRARY)
