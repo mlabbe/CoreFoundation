@@ -31,7 +31,7 @@ def build_android( libname, builder ):
     builder.set_arch_environment()
     builder.ndk_optional_clean( check_errorlevel=True )
     builder.ndk_set_alt_toolchain( 'clang3.1' )
-    builder.ndk_build( ['-B'] )
+    builder.ndk_build()
     
 
 if __name__ == '__main__':
