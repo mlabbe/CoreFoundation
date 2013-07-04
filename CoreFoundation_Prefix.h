@@ -150,7 +150,12 @@ void OSMemoryBarrier();
 
 #include <malloc.h>
 CF_INLINE size_t malloc_size(void *memblock) {
+
+#ifdef DEPLOYMENT_TARGET_ANDROID
+    return malloc_size(memblock);
+#else
     return malloc_usable_size(memblock);
+#endif
 }
 
 #endif
@@ -261,9 +266,11 @@ typedef int32_t OSSpinLock;
 #include <stdio.h>
 #include <malloc.h>
 
+
 CF_INLINE size_t malloc_size(void *memblock) {
     return _msize(memblock);
 }
+
 
 CF_INLINE uint64_t mach_absolute_time() {
     LARGE_INTEGER count;
