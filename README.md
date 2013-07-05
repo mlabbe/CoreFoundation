@@ -21,7 +21,7 @@ Absolutely no Java bindings are provided.  This code has been tested with the An
 
 CoreFoundation Lite for Android has two dependencies:
 
- - libBlocksRuntime, ported to Android.  Pull from [this github repo](http://todo)
+ - libBlocksRuntime, ported to Android.  Pull from [this github repo](https://github.com/StorypandaEnterprises/libBlocksRuntime)
  - icu4c, ported to Android. Pull from [this github repo](https://github.com/android/platform_external_icu4c)
 
 ### Building libBlocksRuntime
